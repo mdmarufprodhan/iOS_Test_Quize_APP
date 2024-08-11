@@ -11,6 +11,7 @@
 		52EF5B9D2C67DA0400C3DA34 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52EF5B9C2C67DA0400C3DA34 /* ContentView.swift */; };
 		52EF5B9F2C67DA0600C3DA34 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 52EF5B9E2C67DA0600C3DA34 /* Assets.xcassets */; };
 		52EF5BA22C67DA0600C3DA34 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 52EF5BA12C67DA0600C3DA34 /* Preview Assets.xcassets */; };
+		52EF5BAC2C67DB9300C3DA34 /* MainMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52EF5BAB2C67DB9300C3DA34 /* MainMenuView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -19,6 +20,7 @@
 		52EF5B9C2C67DA0400C3DA34 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		52EF5B9E2C67DA0600C3DA34 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		52EF5BA12C67DA0600C3DA34 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		52EF5BAB2C67DB9300C3DA34 /* MainMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -51,6 +53,9 @@
 		52EF5B992C67DA0400C3DA34 /* quizeApp */ = {
 			isa = PBXGroup;
 			children = (
+				52EF5BAA2C67DA3000C3DA34 /* ViewModel */,
+				52EF5BA92C67DA2400C3DA34 /* Views */,
+				52EF5BA82C67DA1A00C3DA34 /* Models */,
 				52EF5B9A2C67DA0400C3DA34 /* quizeAppApp.swift */,
 				52EF5B9C2C67DA0400C3DA34 /* ContentView.swift */,
 				52EF5B9E2C67DA0600C3DA34 /* Assets.xcassets */,
@@ -65,6 +70,28 @@
 				52EF5BA12C67DA0600C3DA34 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		52EF5BA82C67DA1A00C3DA34 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		52EF5BA92C67DA2400C3DA34 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				52EF5BAB2C67DB9300C3DA34 /* MainMenuView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		52EF5BAA2C67DA3000C3DA34 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -137,6 +164,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				52EF5BAC2C67DB9300C3DA34 /* MainMenuView.swift in Sources */,
 				52EF5B9D2C67DA0400C3DA34 /* ContentView.swift in Sources */,
 				52EF5B9B2C67DA0400C3DA34 /* quizeAppApp.swift in Sources */,
 			);
