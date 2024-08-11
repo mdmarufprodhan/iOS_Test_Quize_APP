@@ -7,20 +7,26 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		52891F622C69212100B94106 /* AnswerPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52891F612C69212100B94106 /* AnswerPageView.swift */; };
 		52EF5B9B2C67DA0400C3DA34 /* quizeAppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52EF5B9A2C67DA0400C3DA34 /* quizeAppApp.swift */; };
 		52EF5B9D2C67DA0400C3DA34 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52EF5B9C2C67DA0400C3DA34 /* ContentView.swift */; };
 		52EF5B9F2C67DA0600C3DA34 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 52EF5B9E2C67DA0600C3DA34 /* Assets.xcassets */; };
 		52EF5BA22C67DA0600C3DA34 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 52EF5BA12C67DA0600C3DA34 /* Preview Assets.xcassets */; };
 		52EF5BAC2C67DB9300C3DA34 /* MainMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52EF5BAB2C67DB9300C3DA34 /* MainMenuView.swift */; };
+		52EF5BAF2C68CA7C00C3DA34 /* CustomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52EF5BAE2C68CA7C00C3DA34 /* CustomView.swift */; };
+		52EF5BB12C68D73400C3DA34 /* AppColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52EF5BB02C68D73400C3DA34 /* AppColors.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		52891F612C69212100B94106 /* AnswerPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswerPageView.swift; sourceTree = "<group>"; };
 		52EF5B972C67DA0400C3DA34 /* quizeApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = quizeApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		52EF5B9A2C67DA0400C3DA34 /* quizeAppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = quizeAppApp.swift; sourceTree = "<group>"; };
 		52EF5B9C2C67DA0400C3DA34 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		52EF5B9E2C67DA0600C3DA34 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		52EF5BA12C67DA0600C3DA34 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		52EF5BAB2C67DB9300C3DA34 /* MainMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuView.swift; sourceTree = "<group>"; };
+		52EF5BAE2C68CA7C00C3DA34 /* CustomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomView.swift; sourceTree = "<group>"; };
+		52EF5BB02C68D73400C3DA34 /* AppColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppColors.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -53,6 +59,7 @@
 		52EF5B992C67DA0400C3DA34 /* quizeApp */ = {
 			isa = PBXGroup;
 			children = (
+				52EF5BAD2C68CA6300C3DA34 /* Extension */,
 				52EF5BAA2C67DA3000C3DA34 /* ViewModel */,
 				52EF5BA92C67DA2400C3DA34 /* Views */,
 				52EF5BA82C67DA1A00C3DA34 /* Models */,
@@ -83,6 +90,7 @@
 			isa = PBXGroup;
 			children = (
 				52EF5BAB2C67DB9300C3DA34 /* MainMenuView.swift */,
+				52891F612C69212100B94106 /* AnswerPageView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -92,6 +100,15 @@
 			children = (
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		52EF5BAD2C68CA6300C3DA34 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				52EF5BAE2C68CA7C00C3DA34 /* CustomView.swift */,
+				52EF5BB02C68D73400C3DA34 /* AppColors.swift */,
+			);
+			path = Extension;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -165,7 +182,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				52EF5BAC2C67DB9300C3DA34 /* MainMenuView.swift in Sources */,
+				52891F622C69212100B94106 /* AnswerPageView.swift in Sources */,
+				52EF5BAF2C68CA7C00C3DA34 /* CustomView.swift in Sources */,
 				52EF5B9D2C67DA0400C3DA34 /* ContentView.swift in Sources */,
+				52EF5BB12C68D73400C3DA34 /* AppColors.swift in Sources */,
 				52EF5B9B2C67DA0400C3DA34 /* quizeAppApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
