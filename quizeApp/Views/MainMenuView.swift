@@ -8,55 +8,62 @@
 import SwiftUI
 
 struct MainMenuView: View {
+    @StateObject private var viewModel = QuizViewModel()
+    @State private var showAlert = false
+    @State private var navigateToNextView = false
     var body: some View {
         NavigationStack {
             ZStack {
-                    LinearGradient(
-                        gradient: Gradient(colors: [Color("mainMenu_bg1"), Color("mainMenu_bg2")]),
-                        startPoint: .top,
-                        endPoint: .center
-                    )
-                    VStack(alignment:.leading,spacing:12) {
-                        Spacer()
-                        Spacer()
-                        headerView
-                            .padding(.top,32)
-                            .padding(16)
-                        HStack{
-                            Image("highScore")
-                                .padding(.top,16)
-                                .overlay {
-                                    VStack(alignment:.center) {
-                                        Text("500")
+                LinearGradient(
+                    gradient: Gradient(colors: [Color("mainMenu_bg1"), Color("mainMenu_bg2")]),
+                    startPoint: .top,
+                    endPoint: .center
+                )
+                VStack(alignment:.leading,spacing:12) {
+                    headerView
+                        .padding(.top,32)
+                        .padding(16)
+                    HStack{
+                        Image("highScore")
+                            .padding(.top,16)
+                            .overlay {
+                                VStack(alignment:.center) {
+                                        Text("\(viewModel.highScore)")
                                             .font(.system(size: 32))
                                             .bold()
                                             .foregroundStyle(.red)
                                             .fontWeight(.bold)
-                                        Text("High Scroe")
-                                            .font(.system(size:12))
-                                    }
+                                    Text("High Scroe")
+                                        .font(.system(size:12))
                                 }
-                            Spacer()
-                            Image("coin_img")
-                        }
-                        VStack(alignment:.leading,spacing:4){
-                            Text("JRF Sunday’s")
-                                .font(.system(size: 32))
-                                .foregroundStyle(.white)
-                                .bold()
-                            Text("Supper Quiz")
-                                .font(.system(size: 48))
-                                .foregroundStyle(.white)
-                                .bold()
-                            Text("Play Super Quiz & earn 500 coin")
-                                .font(.system(size: 13))
-                                .foregroundStyle(.white)
-                        }
+                                
+                            }
                         Spacer()
-                      //  .padding(16)
-                       quizeCard
+                        Image("coin_img")
                     }
-                   // .padding(16)
+                    VStack(alignment:.leading,spacing:4){
+                        Text("JRF Sunday’s")
+                            .font(.system(size: 32))
+                            .foregroundStyle(.white)
+                            .bold()
+                        Text("Supper Quiz")
+                            .font(.system(size: 48))
+                            .foregroundStyle(.white)
+                            .bold()
+                        Text("Play Super Quiz & earn 500 coin")
+                            .font(.system(size: 13))
+                            .foregroundStyle(.white)
+                    }
+                    // Spacer()
+                    .padding(16)
+                    quizeCard
+                }
+                .onAppear{
+                    viewModel.resetQuiz()
+                }
+                .navigationBarBackButtonHidden()
+                .navigationBarBackButtonHidden(true)
+                // .padding(16)
             }
             .edgesIgnoringSafeArea(.all)
         }
@@ -79,16 +86,10 @@ struct MainMenuView: View {
                 .font(.system(size: 20))
                 .foregroundColor(AppColors.mainBgColor)
                 .bold()
-           // Spacer()
+            // Spacer()
             VStack (alignment:.leading,spacing:12){
                 Text("The Quize ends in")
-                HStack {
-                    hoursCardView(time: "2", hour: "Hour")
-                    Spacer()
-                    hoursCardView(time: "30", hour: "Minute")
-                    Spacer()
-                    hoursCardView(time: "50", hour: "Second")
-                }
+                CountdownView()
                 NavigationLink {
                     AnswerPageView()
                 } label: {
@@ -102,13 +103,15 @@ struct MainMenuView: View {
                 }
             }
             Spacer()
-          
+                .padding(.bottom,32)
+            
         }
         .padding(16)
         .frame(maxWidth:.infinity,alignment: .leading)
-        .frame(height: 350)
+        .frame(maxHeight:.infinity)
         .background(.white)
         .cornerRadius(25, corners: [.topLeft, .topRight])
+        
     }
     
     private func hoursCardView(time:String, hour:String) -> some View {

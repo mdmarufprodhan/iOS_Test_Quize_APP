@@ -8,28 +8,32 @@
 import SwiftUI
 
 struct AnswerPageView: View {
+    @State var cardAnswerClick = false
+    @StateObject private var viewModel = QuizViewModel()
     @Environment(\.dismiss) var dismiss
     @State private var timeRemaining = 10.0 // Set your desired quiz duration
-        @State private var timerIsActive = true
+    @State private var timerIsActive = true
+    @State private var isAnswerDisabled = false
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     var body: some View {
         VStack {
             
             ZStack {
-               
+                
                 LinearGradient(
                     gradient: Gradient(colors: [Color("mainMenu_bg1"), Color("mainMenu_bg2")]),
                     startPoint: .top,
                     endPoint: .center
                 ).ignoresSafeArea()
-               
+                
                 ScrollView {
                     navBar
                     VStack {
                         HStack {
-                            Text("Question 2/20")
+                            Text("Question \(viewModel.currentQuestionIndex)/\(viewModel.currentQuestionIndex)")
                                 .foregroundStyle(AppColors.mainBgColor)
                             Spacer()
-                            Text("50")
+                            Text("\(viewModel.score)")
                                 .foregroundStyle(AppColors.mainBgColor)
                                 .bold()
                             Image("gold")
@@ -38,17 +42,47 @@ struct AnswerPageView: View {
                         VStack (alignment: .center){
                             Image("jrfCard")
                         }
-                        VStack(alignment:.leading,spacing: 0){
-                            Text("What is the name of this card in the JRF?")
-                                .lineLimit(2)
-                            timer
-                           // timer
+                        VStack(alignment:.leading,spacing:12){
+                            if let question = viewModel.currentQuestion {
+                                Text(question.question)
+                                    .font(.system(size: 20))
+                                    .padding(16)
+                                    .lineLimit(2)
+                                timer
+                                ForEach(question.answers) { answer in
+                                    Button(action: {
+                                        if !isAnswerDisabled {
+                                            viewModel.submitAnswer(answer)
+                                            isAnswerDisabled = true
+                                            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                                                viewModel.goToNextQuestion()
+                                                isAnswerDisabled = false
+                                            }
+                                        }
+                                    }, label: {
+                                        HStack {
+                                            Text("\(answer.key).")
+                                                .foregroundStyle(.black)
+                                                .bold()
+                                            Text(answer.text)
+                                                .foregroundStyle(.black)
+                                                .bold()
+                                            Spacer()
+                                            
+                                        }
+                                        .padding(16)
+                                        .frame(maxWidth:.infinity)
+                                        .frame(height: 44)
+                                        .border(.gray, width: 1)
+                                        .background(viewModel.backgroundColor(for: answer))
+                                        .cornerRadius(2)
+                                        // .padding(16)
+                                    })
+                                }
+                            }
+                            
+                            // timer
                         }
-                        questionCard(questionNumber: "A", questions: "JRF Black Card")
-                        questionCard(questionNumber: "B", questions: "JRF Black Card")
-                        questionCard(questionNumber: "C", questions: "JRF Black Card")
-                        questionCard(questionNumber: "D", questions: "JRF Black Card")
-                        
                         nextButton
                     }
                     .padding(16)
@@ -66,17 +100,31 @@ struct AnswerPageView: View {
     }
     private var nextButton: some View {
         VStack {
-            Button(action: {
-                
-            }, label: {
-               Text("next")
-                    .foregroundStyle(.white)
-                    .bold()
-                    .padding(16)
-                    .frame(maxWidth: .infinity)
-                    .background(AppColors.mainBgColor)
-                    .cornerRadius(12)
-            })
+            if viewModel.selectedAnswer != nil {
+                Button(action: {
+                    viewModel.goToNextQuestion()
+                  //  isAnswerDisabled = false
+                }, label: {
+                    Text("next")
+                        .foregroundStyle(.white)
+                        .bold()
+                        .padding(16)
+                        .frame(maxWidth: .infinity)
+                        .background(AppColors.mainBgColor)
+                        .cornerRadius(12)
+                })
+            }
+            else if viewModel.isQuizCompleted {
+                NavigationLink(destination: MainMenuView()) {
+                    Text("Return to Main Menu")
+                        .foregroundStyle(.white)
+                        .bold()
+                        .padding(16)
+                        .frame(maxWidth: .infinity)
+                        .background(AppColors.mainBgColor)
+                        .cornerRadius(12)
+                }
+            }
         }
     }
     private func questionCard(questionNumber: String,questions:String) -> some View {
@@ -84,25 +132,24 @@ struct AnswerPageView: View {
             Button(action: {
                 
             }, label: {
-                    HStack {
-                        Text(questionNumber)
-                        Text(questions)
-                        Spacer()
-                    }
-                    .padding(16)
-                    .frame(height: 44)
-                    .border(.gray, width: 1)
-                    
-            // .padding(16)
+                HStack {
+                    Text(questionNumber)
+                    Text(questions)
+                    Spacer()
+                }
+                .padding(16)
+                .frame(height: 44)
+                .border(.gray, width: 1)
+                // .padding(16)
             })
-          
+            
         }
     }
     private var timer : some View {
         HStack {
             Text("Time:")
-               // .font(.headline)
-                //.padding(.bottom, 10)
+            // .font(.headline)
+            //.padding(.bottom, 10)
             
             ZStack(alignment: .leading) {
                 Rectangle()
@@ -126,34 +173,45 @@ struct AnswerPageView: View {
     private var navBar: some View {
         HStack {
             Button(action: {
+                viewModel.goToNextQuestion()
                 dismiss()
             }, label: {
                 Image("backbtn")
             })
-           
+            
             Spacer()
             HStack {
                 Image("timer_ic")
                 Text("2.23")
                     .foregroundStyle(.white)
             }
-           
+            
             Spacer()
         }
     }
     
     func startTimer() {
-            Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { timer in
-                if timeRemaining > 0 && timerIsActive {
-                    timeRemaining -= 1
-                } else {
-                    timer.invalidate()
-                    timerIsActive = false
-                }
+        Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { timer in
+            if timeRemaining > 0 && timerIsActive {
+                timeRemaining -= 1
+            } else {
+                timer.invalidate()
+                timerIsActive = false
             }
         }
+    }
 }
 
 #Preview {
     AnswerPageView()
+}
+
+extension QuizViewModel {
+    func backgroundColor(for answer: Answer) -> Color {
+        if let selectedAnswer = selectedAnswer, selectedAnswer.id == answer.id {
+            return isAnswerCorrect == true ? .green : .red
+        } else {
+            return .white
+        }
+    }
 }
