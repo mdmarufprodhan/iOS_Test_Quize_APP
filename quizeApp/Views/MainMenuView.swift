@@ -28,11 +28,19 @@ struct MainMenuView: View {
                             .padding(.top,16)
                             .overlay {
                                 VStack(alignment:.center) {
+//                                    if viewModel.isQuizCompleted {
                                         Text("\(viewModel.highScore)")
                                             .font(.system(size: 32))
                                             .bold()
                                             .foregroundStyle(.red)
                                             .fontWeight(.bold)
+//                                    } else {
+//                                        Text("0")
+//                                            .font(.system(size: 32))
+//                                            .bold()
+//                                            .foregroundStyle(.red)
+//                                            .fontWeight(.bold)
+//                                    }
                                     Text("High Scroe")
                                         .font(.system(size:12))
                                 }
@@ -59,6 +67,9 @@ struct MainMenuView: View {
                     quizeCard
                 }
                 .onAppear{
+                    viewModel.goToNextQuestion()
+                }
+                .onDisappear{
                     viewModel.resetQuiz()
                 }
                 .navigationBarBackButtonHidden()

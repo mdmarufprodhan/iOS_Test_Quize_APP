@@ -17,9 +17,7 @@ struct AnswerPageView: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     var body: some View {
         VStack {
-            
             ZStack {
-                
                 LinearGradient(
                     gradient: Gradient(colors: [Color("mainMenu_bg1"), Color("mainMenu_bg2")]),
                     startPoint: .top,
@@ -100,10 +98,10 @@ struct AnswerPageView: View {
     }
     private var nextButton: some View {
         VStack {
-            if viewModel.selectedAnswer != nil {
+            if viewModel.selectedAnswer != nil && viewModel.isQuizCompleted {
                 Button(action: {
                     viewModel.goToNextQuestion()
-                  //  isAnswerDisabled = false
+                    //  isAnswerDisabled = false
                 }, label: {
                     Text("next")
                         .foregroundStyle(.white)
@@ -112,11 +110,9 @@ struct AnswerPageView: View {
                         .frame(maxWidth: .infinity)
                         .background(AppColors.mainBgColor)
                         .cornerRadius(12)
-                })
-            }
-            else if viewModel.isQuizCompleted {
+                }).hidden()
                 NavigationLink(destination: MainMenuView()) {
-                    Text("Return to Main Menu")
+                    Text(viewModel.isQuizCompleted ? "Return to Main Menu": "Next")
                         .foregroundStyle(.white)
                         .bold()
                         .padding(16)
@@ -124,6 +120,7 @@ struct AnswerPageView: View {
                         .background(AppColors.mainBgColor)
                         .cornerRadius(12)
                 }
+                
             }
         }
     }
