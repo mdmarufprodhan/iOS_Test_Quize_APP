@@ -12,8 +12,9 @@ struct AnswerPageView: View {
     @StateObject private var viewModel = QuizViewModel()
     @Environment(\.dismiss) var dismiss
     @State private var timeRemaining = 10.0 // Set your desired quiz duration
-    @State private var timerIsActive = true
+    @State private var timerIsActive = false
     @State private var isAnswerDisabled = false
+    @State private var timer: Timer?
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     var body: some View {
         VStack {
@@ -28,7 +29,7 @@ struct AnswerPageView: View {
                     navBar
                     VStack {
                         HStack {
-                            Text("Question \(viewModel.currentQuestionIndex)/\(viewModel.currentQuestionIndex)")
+                            Text("Question \(viewModel.currentQuestionIndex)/\(viewModel.questions.count - 1 )")
                                 .foregroundStyle(AppColors.mainBgColor)
                             Spacer()
                             Text("\(viewModel.score)")
@@ -46,9 +47,12 @@ struct AnswerPageView: View {
                                     .font(.system(size: 20))
                                     .padding(16)
                                     .lineLimit(2)
-                                timer
+                                 timerCard
                                 ForEach(question.answers) { answer in
                                     Button(action: {
+                                        if !viewModel.isQuizCompleted{
+                                            startTimer()
+                                        }
                                         if !isAnswerDisabled {
                                             viewModel.submitAnswer(answer)
                                             isAnswerDisabled = true
@@ -88,7 +92,7 @@ struct AnswerPageView: View {
                     .frame(maxHeight: .infinity)
                     .background(.white)
                     .cornerRadius(12)
-                    .padding(16)
+                    //.padding(16)
                 }
                 
             }
@@ -142,7 +146,7 @@ struct AnswerPageView: View {
             
         }
     }
-    private var timer : some View {
+    private var timerCard : some View {
         HStack {
             Text("Time:")
             // .font(.headline)
@@ -162,10 +166,11 @@ struct AnswerPageView: View {
             }
             .padding(.horizontal)
             Text("0.9 sec")
+                .font(.system(size: 13))
             Spacer()
         }
         .padding()
-        .onAppear(perform: startTimer)
+      //  .onAppear(perform: startTimer)
     }
     private var navBar: some View {
         HStack {
@@ -188,6 +193,9 @@ struct AnswerPageView: View {
     }
     
     func startTimer() {
+        timer?.invalidate() // Invalidate any existing timer to prevent multiple timers running simultaneously
+        timeRemaining = 10.0  // Reset the timer to its original state
+        timerIsActive = true
         Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { timer in
             if timeRemaining > 0 && timerIsActive {
                 timeRemaining -= 1

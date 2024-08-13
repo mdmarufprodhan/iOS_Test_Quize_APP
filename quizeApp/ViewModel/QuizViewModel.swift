@@ -68,9 +68,14 @@ class QuizViewModel: ObservableObject {
     
     private func loadHighScore() {
         highScore = UserDefaults.standard.integer(forKey: "highScore")
+        let defaults = UserDefaults.standard
+            defaults.removeObject(forKey: "highScore") //
+      
     }
     
     private func saveHighScore() {
+        let defaults = UserDefaults.standard
+            defaults.removeObject(forKey: "highScore") //
         UserDefaults.standard.set(highScore, forKey: "highScore")
     }
     

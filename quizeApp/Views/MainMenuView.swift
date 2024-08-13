@@ -68,9 +68,10 @@ struct MainMenuView: View {
                 }
                 .onAppear{
                     viewModel.goToNextQuestion()
+                   // viewModel.resetQuiz()
                 }
                 .onDisappear{
-                    viewModel.resetQuiz()
+                  //  viewModel.resetQuiz()
                 }
                 .navigationBarBackButtonHidden()
                 .navigationBarBackButtonHidden(true)
