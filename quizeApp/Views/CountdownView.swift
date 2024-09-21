@@ -16,7 +16,7 @@ struct CountdownView: View {
         let calendar = Calendar.current
         var components = DateComponents()
         components.year = 2024
-        components.month = 8
+        components.month = 10
         components.day = 15
         components.hour = 23
         components.minute = 59
